@@ -59,7 +59,7 @@ return array(
 		'db'=>array(
 			'connectionString' => 'mysql:host=localhost;dbname=megaapp',
 			'emulatePrepare' => true,
-			'username' => 'test',
+			'username' => 'root',
 			'password' => '123456',
 			'charset' => 'utf8',
 		),

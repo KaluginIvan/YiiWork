@@ -31,29 +31,6 @@ class SiteController extends Controller
 		}
 	}
 
-	public function actionContact()
-	{
-		$model=new ContactForm;
-		if(isset($_POST['ContactForm']))
-		{
-			$model->attributes=$_POST['ContactForm'];
-			if($model->validate())
-			{
-				$name='=?UTF-8?B?'.base64_encode($model->name).'?=';
-				$subject='=?UTF-8?B?'.base64_encode($model->subject).'?=';
-				$headers="From: $name <{$model->email}>\r\n".
-					"Reply-To: {$model->email}\r\n".
-					"MIME-Version: 1.0\r\n".
-					"Content-Type: text/plain; charset=UTF-8";
-
-				mail(Yii::app()->params['adminEmail'],$subject,$model->body,$headers);
-				Yii::app()->user->setFlash('contact','Thank you for contacting us. We will respond to you as soon as possible.');
-				$this->refresh();
-			}
-		}
-		$this->render('contact',array('model'=>$model));
-	}
-
 	public function actionLogin()
 	{
 		$model=new LoginForm;
@@ -102,7 +79,7 @@ class SiteController extends Controller
     public function actionBucket()
     {
         $allItems = Yii::app()->session->get('allItems');
-        $items = Items::model()->findByAttributes(array('id'=>$allItems));
+        $items = Items::model()->findAllByAttributes(array('id'=>$allItems));
         $this->render('bucket',array('items'=>$items));
     }
 
@@ -115,9 +92,9 @@ class SiteController extends Controller
             $phoneForm->attributes = Yii::app()->request->getParam('OrderForm');
 
             if($phoneForm->validate()){
-                $count = Yii::app()->session->get('count');
                 $count = 0;
                 Yii::app()->session->add('count', $count);
+                Yii::app()->session->remove('allItems');
                 $this->redirect(array('site/sucsess'));
             }
         }

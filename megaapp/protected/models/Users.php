@@ -2,6 +2,11 @@
 
 class Users extends CActiveRecord
 {
+    const ROLE_ADMIN = 'administrator';
+    const ROLE_MODER = 'moderator';
+    const ROLE_USER = 'user';
+    const ROLE_BANNED = 'banned';
+
 	public function tableName()
 	{
 		return 'users';

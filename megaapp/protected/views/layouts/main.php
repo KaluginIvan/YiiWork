@@ -26,7 +26,7 @@
 		<?php $this->widget('zii.widgets.CMenu',array(
 			'items'=>array(
 				array('label'=>'Home', 'url'=>array('/site/index')),
-				array('label'=>'Items', 'url'=>array('/site/items', 'view'=>'about')),
+				array('label'=>'Items', 'url'=>array('/site/items')),
 				array('label'=>'Bucket ('.Yii::app()->session->get('count').')', 'url'=>array('/site/bucket'), 'visible'=>!Yii::app()->user->isGuest),
 				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest),
