@@ -1,10 +1,11 @@
 <h3>Your bucket:</h3>
 <?php if(isset($items) && $items !== array()): ?>
 <?php foreach($items as $item): ?>
-<h3>Item №<?php echo $item->id?></h3>
+<h3>Item №<?php echo $item->id?>(<?php echo $number[$item->id] ?>)</h3>
 <p>Title: <?php echo $item->name ?></p>
 <p>Description: <?php echo $item->description ?></p>
 <p>Price: <?php echo $item->price ?></p>
+<p>Category: <?php echo $item->category ?></p>
 <hr/>
 <?php endforeach ?>
 

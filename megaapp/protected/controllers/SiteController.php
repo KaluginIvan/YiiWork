@@ -60,7 +60,9 @@ class SiteController extends Controller
     {
         $items = Items::model()->findAll();
 
-        $this->render('items',array('items'=>$items));
+        $categories = Category::model()->findAll();
+
+        $this->render('items',array('items'=>$items,'categories'=>$categories));
     }
 
     public function actionAddItem($id)
@@ -73,6 +75,13 @@ class SiteController extends Controller
         $allItems[] = $id;
         Yii::app()->session->add('allItems', $allItems);
 
+        $number = Yii::app()->session->get('number');
+        if(isset($number[$id]))
+            $number[$id]++;
+        else
+            $number[$id] = 1;
+        Yii::app()->session->add('number', $number);
+
         $this->redirect(array('site/items'));
     }
 
@@ -80,7 +89,13 @@ class SiteController extends Controller
     {
         $allItems = Yii::app()->session->get('allItems');
         $items = Items::model()->findAllByAttributes(array('id'=>$allItems));
-        $this->render('bucket',array('items'=>$items));
+
+        $session = Yii::app()->session;
+        $session->open();
+
+        $number = $session['number'];
+
+        $this->render('bucket',array('items'=>$items,'number'=>$number));
     }
 
     public function actionOrder()
@@ -92,14 +107,22 @@ class SiteController extends Controller
             $phoneForm->attributes = Yii::app()->request->getParam('OrderForm');
 
             if($phoneForm->validate()){
-                $count = 0;
-                Yii::app()->session->add('count', $count);
+                Yii::app()->session->add('count', 0);
                 Yii::app()->session->remove('allItems');
                 $this->redirect(array('site/sucsess'));
             }
         }
 
         $this->render('order',array('phone'=>$phoneForm));
+    }
+
+    public function actionShowCategory($category)
+    {
+        $items = Items::model()->findAllByAttributes(array('category'=>$category));
+
+        $categories = Category::model()->findAll();
+
+        $this->render('items',array('items'=>$items,'categories'=>$categories));
     }
 
     public function actionSucsess()

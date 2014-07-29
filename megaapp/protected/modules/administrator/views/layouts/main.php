@@ -26,7 +26,8 @@
 		<?php $this->widget('zii.widgets.CMenu',array(
 			'items'=>array(
 				array('label'=>'Home', 'url'=>array('/site/index')),
-				array('label'=>'Site Manager', 'url'=>array('/administrator/items')),
+				array('label'=>'Items Manager', 'url'=>array('/administrator/items')),
+                array('label'=>'Category Manager', 'url'=>array('/administrator/category')),
 				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest),
                 array('label'=>'Admin Tools', 'url'=>array('/administrator'), 'visible'=>Yii::app()->user->role === 'admin')
 			),

@@ -1,18 +1,33 @@
-<?php foreach($items as $i=>$item): ?>
+<div class="span-18">
 
-<form action="/megaapp/index.php/site/addItem/<?php echo $i+1 ?>" method="post">
+    <?php foreach($items as $i=>$item): ?>
 
-    <h3>Item №<?php echo $item->id?></h3>
-    <p>Title: <?php echo $item->name ?></p>
-    <p>Description: <?php echo $item->description ?></p>
-    <p>Price: <?php echo $item->price ?></p>
+    <form action="/megaapp/index.php/site/addItem/<?php echo $i+1 ?>" method="post">
 
-    <?php if(Yii::app()->user->role === 'user'): ?>
-        <div class="row buttons">
-            <?php echo CHtml::submitButton('Add to Bucket'); ?>
-        </div>
-    <?php endif ?>
+        <h3>Item №<?php echo $item->id?></h3>
+        <p>Title: <?php echo $item->name ?></p>
+        <p>Description: <?php echo $item->description ?></p>
+        <p>Price: <?php echo $item->price ?></p>
+        <p>Category: <?php echo $item->category ?></p>
 
-</form>
+        <?php if(Yii::app()->user->role === 'user'): ?>
+            <div class="row buttons">
+                <?php echo CHtml::submitButton('Add to Bucket'); ?>
+            </div>
+        <?php endif ?>
 
-<?php endforeach ?>
+    </form>
+
+    <?php endforeach ?>
+
+</div>
+
+<div class="span-5 last">
+    <div id="sidebar">
+        <h1>Category</h1>
+        <a href="/megaapp/index.php/site/items">clear</a>
+        <?php foreach($categories as $i=>$category): ?>
+            <a href="/megaapp/index.php/site/items/<?php echo $category->title?>"><?php echo $category->title?></a>
+        <?php endforeach ?>
+    </div>
+</div>
